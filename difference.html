@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kaka与red剧本核心差异wiki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "微软黑体", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            /* 全局平滑滚动 */
+            scroll-behavior: smooth;
+        }
+        .wiki-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .wiki-header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #2196F3;
+            margin-bottom: 30px;
+            /* 标题渐入动画 */
+            animation: fadeInDown 0.8s ease-out;
+        }
+        .wiki-header h1 {
+            color: #1976D2;
+            font-size: 2.5rem;
+            /* 标题文字缩放动画 */
+            transition: transform 0.3s ease;
+        }
+        .wiki-header h1:hover {
+            transform: scale(1.05);
+        }
+        .wiki-header p {
+            margin-top: 10px;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        .wiki-nav {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            /* 导航栏滑入动画 */
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .wiki-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .wiki-nav a {
+            text-decoration: none;
+            color: #2196F3;
+            padding: 8px 15px;
+            border-radius: 4px;
+            /* 导航链接复合动画 */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 导航链接下划线动画 */
+        .wiki-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #1976D2;
+            transition: width 0.3s ease;
+        }
+        .wiki-nav a:hover {
+            background-color: #E3F2FD;
+            color: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+        .wiki-nav a:hover::after {
+            width: 100%;
+        }
+        .wiki-section {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            /* 内容区块渐入+上浮动画 */
+            animation: fadeInUp 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+        .wiki-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .wiki-section h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+            /* 副标题左侧装饰线动画 */
+            position: relative;
+        }
+        .wiki-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 2px;
+            background-color: #2196F3;
+            transition: width 0.5s ease;
+        }
+        .wiki-section h2:hover::before {
+            width: 120px;
+        }
+        .diff-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            /* 表格淡入动画 */
+            animation: fadeIn 1s ease-out;
+        }
+        .diff-table th, .diff-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #E0E0E0;
+            /* 单元格过渡 */
+            transition: all 0.2s ease;
+        }
+        .diff-table th {
+            background-color: #F5F5F5;
+            color: #333;
+            /* 表头文字加粗+渐变 */
+            background: linear-gradient(to right, #F5F5F5, #F8FBFF);
+        }
+        .diff-row {
+            /* 表格行过渡 */
+            transition: all 0.3s ease;
+        }
+        .diff-row:hover {
+            background-color: #F9F9F9;
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .highlight {
+            background-color: #FFF3CD;
+            padding: 3px 6px;
+            border-radius: 3px;
+            /* 高亮文字跳动动画 */
+            transition: all 0.3s ease;
+        }
+        .highlight:hover {
+            background-color: #FFEAA7;
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(255, 221, 102, 0.3);
+        }
+        .summary-box {
+            background-color: #E3F2FD;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #2196F3;
+            /* 总结框呼吸动画 */
+            animation: pulse 3s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+        .summary-box:hover {
+            background-color: #D1E7FE;
+            border-left-width: 8px;
+        }
+
+        /* 动画关键帧定义 */
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* 向下渐入 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* 向上渐入 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* 呼吸动画 */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.01);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* 响应式适配（保留） */
+        @media (max-width: 768px) {
+            .wiki-nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .wiki-header h1 {
+                font-size: 2rem;
+            }
+            .wiki-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-container">
+        <header class="wiki-header">
+            <h1>kaka与red剧本核心差异wiki</h1>
+            <p>MC SMP服务器双线路剧本对比分析</p>
+        </header>
+
+        <nav class="wiki-nav">
+            <ul>
+                <li><a href="#overview">概述</a></li>
+                <li><a href="#character">核心人设差异</a></li>
+                <li><a href="#narrative">叙事风格差异</a></li>
+                <li><a href="#structure">剧情结构差异</a></li>
+                <li><a href="#camera">镜头语言差异</a></li>
+                <li><a href="#motivation">核心动机差异</a></li>
+                <li><a href="#support">配角定位差异</a></li>
+                <li><a href="#satisfaction">爽点设计差异</a></li>
+                <li><a href="#theme">主题内核差异</a></li>
+                <li><a href="#summary">总结</a></li>
+            </ul>
+        </nav>
+
+        <section class="wiki-section" id="overview">
+            <h2>概述</h2>
+            <p>kaka与red剧本是同一MC SMP服务器下的两条平行线路剧本，围绕Artisan失落文明的线索展开，但在人设、叙事、节奏等方面存在核心差异，分别对应不同的观众偏好与视频风格。</p>
+            <div class="summary-box">
+                <p><strong>核心区别</strong>：kaka剧本是<strong>成长型悬疑冒险叙事</strong>，red剧本是<strong>爽文式力量掠夺叙事</strong></p>
+            </div>
+        </section>
+
+        <section class="wiki-section" id="character">
+            <h2>核心人设差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>主角定位</td>
+                        <td><span class="highlight">成长型普通玩家</span>：不会PVP，经常被抢劫，渴望自保和守护他人</td>
+                        <td><span class="highlight">强势行动派玩家</span>：具备战斗能力，追求稀有装备和服务器霸权</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>性格特质</td>
+                        <td>怯懦、善良、有责任感，在冒险中逐渐变得勇敢</td>
+                        <td>果断、强势、有野心，以力量和利益为优先</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>能力起点</td>
+                        <td>无战斗能力，仅靠基础装备和道具生存</td>
+                        <td>具备战斗基础，拥有轨道打击炮等高威力装备</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="narrative">
+            <h2>叙事风格差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>叙事视角</td>
+                        <td><span class="highlight">第一人称沉浸式叙事</span>：以kaka的视角体验冒险，观众同步获取信息</td>
+                        <td><span class="highlight">第三人称爽文式叙事</span>：以上帝视角展现red的行动，突出战斗和掠夺的爽感</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>叙事节奏</td>
+                        <td>慢节奏悬念牵引：通过层层铺垫和谜题推进剧情，注重情绪积累</td>
+                        <td>快节奏冲突密集：频繁的战斗和冲突，每3分钟左右一个小高潮</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>叙事氛围</td>
+                        <td>悬疑、温情、成长感：侧重主角的心理变化和伙伴间的情感联结</td>
+                        <td>紧张、刺激、爽快感：侧重战斗的视觉冲击和掠夺的成就感</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="structure">
+            <h2>剧情结构差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>结构类型</td>
+                        <td><span class="highlight">嵌套式闭环结构</span>：4个闭环剧情，每个闭环推进主线并完成一次成长</td>
+                        <td><span class="highlight">线性任务链结构</span>：以"获取线索-战斗-获取新线索"的线性推进</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>剧情推进逻辑</td>
+                        <td>被动卷入事件：因陷阱、抢劫等意外事件推动剧情，逐步接近真相</td>
+                        <td>主动掠夺目标：为了获得稀有装备和技术，主动寻找线索和战斗</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>悬念设计</td>
+                        <td>长期悬念：围绕Artisan文明的真相和神秘人身份展开，贯穿全剧</td>
+                        <td>短期悬念：围绕每次战斗的胜负和线索的获取展开，快速解决</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="camera">
+            <h2>镜头语言差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>镜头视角</td>
+                        <td>第一人称+第四人称（replay视角）：突出沉浸感，用镜头展现主角的感知</td>
+                        <td>第三人称固定视角：突出战斗的视觉效果，清晰展现动作和场景</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>镜头运动</td>
+                        <td>缓慢递进、环绕镜头：营造悬疑氛围，突出细节和情绪</td>
+                        <td>快速切换、特写镜头：突出战斗的紧张感和装备的视觉冲击</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>镜头重点</td>
+                        <td>主角的表情、环境细节：侧重展现主角的心理变化和场景的氛围感</td>
+                        <td>战斗动作、装备特效：侧重展现战斗的爽感和装备的威力</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="motivation">
+            <h2>核心动机差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>主线动机</td>
+                        <td><span class="highlight">寻找真相与自我救赎</span>：探索Artisan文明的真相，获得自保能力，守护他人</td>
+                        <td><span class="highlight">追求力量与霸权</span>：获得失落文明的复制技术，成为服务器最强玩家</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>行动动机</td>
+                        <td>被动应对：因房子被摧毁、被抢劫等事件被迫行动，逐渐主动探索</td>
+                        <td>主动掠夺：为了获得稀有装备和技术，主动寻找线索和发起战斗</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>冲突动机</td>
+                        <td>反抗压迫：对抗赏金猎人的抢劫，保护难民和伙伴</td>
+                        <td>争夺资源：与赏金猎人和其他玩家争夺线索和装备</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="support">
+            <h2>配角定位差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本（jusi）</th>
+                        <th>red剧本（pixel）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>角色定位</td>
+                        <td><span class="highlight">成长型伙伴</span>：与kaka共同成长，提供情绪支持和战斗帮助</td>
+                        <td><span class="highlight">辅助型智囊</span>：为red提供策略支持和后勤保障，负责解谜和陷阱规避</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>性格特质</td>
+                        <td>乐观、嘴贫，偶尔冲动，与kaka形成性格互补</td>
+                        <td>沉着、冷静、智慧，全程保持理性，为red提供决策支持</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>功能作用</td>
+                        <td>推动剧情发展，陪伴主角成长，增强情感联结</td>
+                        <td>规避风险、破解谜题、辅助战斗，提升行动效率</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="satisfaction">
+            <h2>爽点设计差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>爽点类型</td>
+                        <td><span class="highlight">延迟满足型爽点</span>：通过长期成长获得的成就感，比如学会使用重锤、拯救难民</td>
+                        <td><span class="highlight">即时满足型爽点</span>：通过战斗和掠夺获得的爽感，比如用轨道炮摧毁敌人、抢夺线索</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>爽点节奏</td>
+                        <td>慢积累、爆发式：全剧有1-2个核心爽点，通过长期铺垫积累情绪</td>
+                        <td>快节奏、密集式：每段剧情都有小爽点，频繁的战斗和掠夺带来持续爽感</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>爽点来源</td>
+                        <td>自我成长、守护他人：通过自身的进步和帮助他人获得满足感</td>
+                        <td>力量展示、资源掠夺：通过展示力量和掠夺资源获得满足感</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="theme">
+            <h2>主题内核差异</h2>
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>kaka剧本</th>
+                        <th>red剧本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="diff-row">
+                        <td>核心主题</td>
+                        <td><span class="highlight">成长与救赎</span>：普通玩家在困境中成长，学会守护他人，找到自我价值</td>
+                        <td><span class="highlight">力量与霸权</span>：强者通过掠夺和战斗获得霸权，掌握服务器的控制权</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>价值观导向</td>
+                        <td>善良、团结、守护：强调互助和正义，反对暴力和掠夺</td>
+                        <td>实力、野心、竞争：强调个人力量和利益，鼓励竞争和掠夺</td>
+                    </tr>
+                    <tr class="diff-row">
+                        <td>结局导向</td>
+                        <td>开放式成长结局：主角获得成长，但仍有未完成的目标，留有成长空间</td>
+                        <td>阶段性胜利结局：主角获得新线索，向更高目标前进，留有续作空间</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="wiki-section" id="summary">
+            <h2>总结</h2>
+            <div class="summary-box">
+                <p><strong>kaka剧本</strong>更适合喜欢悬疑、成长、温情风格的观众，以主角的心理变化和情感联结为核心，通过慢节奏的叙事营造沉浸感，适合打造长线IP和情感共鸣。</p>
+                <br>
+                <p><strong>red剧本</strong>更适合喜欢爽文、战斗、刺激风格的观众，以力量展示和掠夺爽感为核心，通过快节奏的冲突吸引观众，适合打造短平快的爆款视频。</p>
+                <br>
+                <p>两条线路虽然围绕同一世界观展开，但通过不同的人设、叙事和主题，覆盖了不同的观众群体，共同丰富了MC SMP服务器的故事生态。</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

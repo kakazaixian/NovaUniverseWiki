@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaUniverse wiki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "微软黑体", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .wiki-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .wiki-header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #2196F3;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        .wiki-header h1 {
+            color: #1976D2;
+            font-size: 3rem;
+            transition: transform 0.3s ease;
+        }
+        .wiki-header h1:hover {
+            transform: scale(1.05);
+        }
+        .wiki-header .intro {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        .characters-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            transition: all 0.3s ease;
+        }
+        .characters-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .characters-section h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .characters-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 2px;
+            background-color: #2196F3;
+            transition: width 0.5s ease;
+        }
+        .characters-section h2:hover::before {
+            width: 120px;
+        }
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .character-card {
+            background-color: #f8fbff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e3f2fd;
+        }
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 12px rgba(33, 150, 243, 0.15);
+            border-color: #2196F3;
+        }
+        .character-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #e3f2fd;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2196F3;
+            font-size: 1.5rem;
+            border: 3px solid #2196F3;
+            transition: all 0.3s ease;
+        }
+        .character-card:hover .character-avatar {
+            transform: scale(1.1);
+            background-color: #2196F3;
+            color: #fff;
+        }
+        .character-name {
+            font-size: 1.3rem;
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        .character-desc {
+            opacity: 0.7;
+        }
+        .more-characters {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .more-characters a {
+            color: #2196F3;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #2196F3;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .more-characters a:hover {
+            background-color: #2196F3;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .latest-video {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.7s both;
+            transition: all 0.3s ease;
+        }
+        .latest-video:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .latest-video h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .latest-video h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 2px;
+            background-color: #2196F3;
+            transition: width 0.5s ease;
+        }
+        .latest-video h2:hover::before {
+            width: 120px;
+        }
+        .video-card {
+            background-color: #f8fbff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e3f2fd;
+            transition: all 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(33, 150, 243, 0.15);
+        }
+        .video-cover {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background-color: #e3f2fd;
+            margin: 0 auto 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2196F3;
+            font-size: 1.2rem;
+            border: 2px solid #2196F3;
+        }
+        .video-title {
+            font-size: 1.2rem;
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+        .video-desc {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .wiki-nav-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.9s both;
+        }
+        .wiki-nav-section h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .wiki-nav-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 2px;
+            background-color: #2196F3;
+            transition: width 0.5s ease;
+        }
+        .wiki-nav-section h2:hover::before {
+            width: 120px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #2196F3;
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #e3f2fd;
+            transition: all 0.3s ease;
+            border: 1px solid #2196F3;
+        }
+        .nav-links a:hover {
+            background-color: #2196F3;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .quick-links a {
+            text-decoration: none;
+            color: #2196F3;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .quick-links a:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-2px);
+        }
+        .features-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            transition: all 0.3s ease;
+        }
+        .features-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .features-section h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .features-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 2px;
+            background-color: #2196F3;
+            transition: width 0.5s ease;
+        }
+        .features-section h2:hover::before {
+            width: 120px;
+        }
+        .features-intro {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background-color: #f8fbff;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e3f2fd;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 12px rgba(33, 150, 243, 0.15);
+            border-color: #2196F3;
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e3f2fd;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2196F3;
+            font-size: 1.5rem;
+            border: 2px solid #2196F3;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background-color: #2196F3;
+            color: #fff;
+        }
+        .feature-title {
+            font-size: 1.2rem;
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        .feature-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .wiki-header h1 {
+                font-size: 2.2rem;
+            }
+            .nav-links {
+                flex-direction: column;
+            }
+            .quick-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-container">
+        <header class="wiki-header">
+            <h1>NovaUniverse wiki</h1>
+            <p class="intro">欢迎来到NovaUniverse，这是一个极限生存服务器，在这里你可以建立你的文明，书写你的故事，甚至发动战争。在NovaUniverse的故事远远不止于此，等待着你去发现</p>
+        </header>
+
+        <section class="features-section">
+            <h2>服务器特色</h2>
+            <p class="features-intro">NovaUniverse服务器采用极限生存模式，每个玩家仅有一条生命，死亡即意味着永久离开，这也让每一次冒险都充满了紧张与刺激。服务器中不仅保留了MC的原生玩法，还添加了大量自定义内容与史诗级剧情线，让你在生存的同时，能沉浸式体验一个庞大的虚拟世界。</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">极限生存模式</h3>
+                    <p class="feature-desc">每条生命都无比珍贵，你需要在危险的世界中谨慎生存，收集资源、建造庇护所，应对各种未知的威胁。</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">史诗剧情线</h3>
+                    <p class="feature-desc">围绕Artisan失落文明展开的庞大剧情，你可以跟随主线任务探索文明的秘密，参与到服务器的史诗故事中。</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">自定义内容</h3>
+                    <p class="feature-desc">服务器添加了大量自定义物品、装备与机关，还有独特的重锤战斗系统，让你的冒险体验更加丰富。</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">文明建设</h3>
+                    <p class="feature-desc">你可以与其他玩家合作建立文明，发展科技、建造城邦，甚至与其他文明展开外交或战争。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="characters-section">
+            <h2>认识主角们</h2>
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-avatar">red_IXx</div>
+                    <h3 class="character-name">red_IXx</h3>
+                    <p class="character-desc">强势行动派玩家，追求稀有装备与服务器霸权，拥有强大的战斗能力</p>
+                </div>
+                <div class="character-card">
+                    <div class="character-avatar">在线卡卡</div>
+                    <h3 class="character-name">在线卡卡</h3>
+                    <p class="character-desc">成长型普通玩家，在冒险中逐渐变得勇敢，渴望守护他人与探索真相</p>
+                </div>
+                <div class="character-card">
+                    <div class="character-avatar">flame</div>
+                    <h3 class="character-name">flamegemini</h3>
+                    <p class="character-desc">神秘的服务器腐竹，掌握着服务器的核心秘密与线索</p>
+                </div>
+            </div>
+            <div class="more-characters">
+                <a href="characters.html">还没有看够吗？这里还有一大堆配角</a>
+            </div>
+        </section>
+
+        <section class="latest-video">
+            <h2>最新视频</h2>
+            <div class="video-card">
+                <div class="video-cover">视频封面（可手动更改）</div>
+                <h3 class="video-title">这个箱子本不应该存在</h3>
+                <p class="video-desc">在本期视频中，在线卡卡发现了一个本不应该出现在服务器中的神秘箱子，这个箱子不仅贴图异常，还隐藏着致命的陷阱。在探索箱子秘密的过程中，他遭遇了隐身玩家的袭击，险些丧命，最终凭借末影珍珠侥幸逃生。而这个箱子背后，竟然隐藏着与Artisan文明相关的线索，也让他进一步卷入了服务器的阴谋中。</p>
+            </div>
+        </section>
+
+        <section class="wiki-nav-section">
+            <h2>wiki导航</h2>
+            <div class="nav-links">
+                <a href="iteams.html">物品</a>
+                <a href="team.html">组织</a>
+                <a href="characters.html">人物</a>
+                <a href="difference.html">剧本差异</a>
+                <a href="#civilizations">文明（待更新）</a>
+            </div>
+            <div class="quick-links">
+                <a href="#episodes">历史剧集（待更新）</a>
+                <a href="#faq">常见问题（待更新）</a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

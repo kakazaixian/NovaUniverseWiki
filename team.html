@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaUniverse wiki - 组织</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "微软黑体", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .wiki-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .wiki-header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #2196F3;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        .wiki-header h1 {
+            color: #1976D2;
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+        .wiki-header h1:hover {
+            transform: scale(1.05);
+        }
+        .wiki-nav {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .wiki-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .wiki-nav a {
+            text-decoration: none;
+            color: #2196F3;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .wiki-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #1976D2;
+            transition: width 0.3s ease;
+        }
+        .wiki-nav a:hover {
+            background-color: #E3F2FD;
+            color: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+        .wiki-nav a:hover::after {
+            width: 100%;
+        }
+        .org-section {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+        .org-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .org-section h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .org-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 2px;
+            background-color: #2196F3;
+            transition: width 0.5s ease;
+        }
+        .org-section h2:hover::before {
+            width: 120px;
+        }
+        .org-subtitle {
+            color: #2196F3;
+            font-size: 1.2rem;
+            margin: 15px 0 10px;
+        }
+        .org-content {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        .org-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .highlight {
+            background-color: #E3F2FD;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .highlight:hover {
+            background-color: #BBDEFB;
+            transform: scale(1.02);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .wiki-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .wiki-header h1 {
+                font-size: 2rem;
+            }
+            .org-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-container">
+        <header class="wiki-header">
+            <h1>NovaUniverse wiki - 组织</h1>
+        </header>
+
+        <nav class="wiki-nav">
+            <ul>
+                <li><a href="%20index.html">返回首页</a></li>
+                <li><a href="#bounty-hunter">赏金猎人</a></li>
+                <li><a href="#chamber-of-commerce">商会</a></li>
+                <li><a href="#desert-civilization">沙漠失落文明</a></li>
+            </ul>
+        </nav>
+
+        <section class="org-section" id="bounty-hunter">
+            <h2>赏金猎人</h2>
+            <p class="org-content">
+                <span class="highlight">赏金猎人</span>是bendyus发起的一个组织，虽然叫赏金猎人，但实际上只是致敬一下uu的赏金猎人，想要像uu里的赏金猎人一样寻找宝藏。
+            </p>
+
+            <h3 class="org-subtitle">成员</h3>
+            <p class="org-content">
+                目前赏金猎人一共有6名成员，在与red的出生点战役中阵亡了两人。
+            </p>
+
+            <h3 class="org-subtitle">基地</h3>
+            <p class="org-content">
+                赏金猎人一号基地，这是赏金猎人目前唯一的基地。这里被黑曜石围墙包裹，主体是一个村庄，在村庄的周围拥有几个大型仓库。在kaka的“这个箱子本不因该存在”中短暂出现过。
+            </p>
+        </section>
+
+        <section class="org-section" id="chamber-of-commerce">
+            <h2>商会</h2>
+            <p class="org-content">
+                这是继artisan的失落文明之后最大的一个组织。由于失落文明的解体，他的遗产被留在世界各地，其中大多数被摧毁。商会是建立在artisan在主世界的城镇区遗址之上，并且进行了整顿完善，已经成为了服务器已知最大的建筑（除去未发现的失落文明遗迹）。
+            </p>
+
+            <h3 class="org-subtitle">谜团</h3>
+            <p class="org-content">
+                商会是服务器中唯一一个交易场所，距离出生点仅仅为10000格左右。理论上他早就应该被炸了，但是他依然存在。目前学者们对商会存在的原因争论不休，主流观点认为商会是服务器的共同信仰，如果谁炸毁了商会意味着和服务器所有人宣战。但讽刺的是这个观点没有任何佐证资料。从目前视频来看，服务器内知道商会的人少之又少。
+            </p>
+
+            <h3 class="org-subtitle">成员</h3>
+            <p class="org-content">
+                目前已知道商会拥有超过50名成员，其中大多数都漂流在外。真正经营商会的不过20人。
+            </p>
+        </section>
+
+        <section class="org-section" id="desert-civilization">
+            <h2>沙漠失落文明</h2>
+            <p class="org-content">
+                这是视频中出现的第一个失落文明建筑，但其真实建筑者目前仍然还是一个谜团。目前来看，沙漠失落文明是失落文明的早期建筑风格，极其讲究就地取材。
+            </p>
+
+            <h3 class="org-subtitle">谜团</h3>
+            <p class="org-content">
+                据我们目前来看，沙漠文明不具备使用漏洞的能力，那他们的居民真的是失落一族吗？
+            </p>
+
+            <h3 class="org-subtitle">成员</h3>
+            <p class="org-content">
+                目前已知道沙漠文明拥有20名左右的成员，具体身份不详。
+            </p>
+        </section>
+    </div>
+</body>
+</html>

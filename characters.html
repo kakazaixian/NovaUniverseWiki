@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaUniverse wiki - 人物</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "微软黑体", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .wiki-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .wiki-header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #2196F3;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        .wiki-header h1 {
+            color: #1976D2;
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+        .wiki-header h1:hover {
+            transform: scale(1.05);
+        }
+        .wiki-nav {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .wiki-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .wiki-nav a {
+            text-decoration: none;
+            color: #2196F3;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .wiki-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #1976D2;
+            transition: width 0.3s ease;
+        }
+        .wiki-nav a:hover {
+            background-color: #E3F2FD;
+            color: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+        .wiki-nav a:hover::after {
+            width: 100%;
+        }
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .character-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .character-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+        .character-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #E3F2FD;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2196F3;
+            font-size: 1.5rem;
+            border: 3px solid #2196F3;
+            transition: all 0.3s ease;
+        }
+        .character-card:hover .character-avatar {
+            transform: scale(1.1);
+            background-color: #2196F3;
+            color: #fff;
+        }
+        .character-name {
+            font-size: 1.5rem;
+            color: #1976D2;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 8px;
+        }
+        .character-role {
+            color: #2196F3;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .character-desc {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .character-exp {
+            background-color: #F8FBFF;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2196F3;
+        }
+        .exp-title {
+            color: #1976D2;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .wiki-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .wiki-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-container">
+        <header class="wiki-header">
+            <h1>NovaUniverse wiki - 人物</h1>
+        </header>
+
+        <nav class="wiki-nav">
+            <ul>
+                <li><a href="%20index.html">返回首页</a></li>
+                <li><a href="#kaka">kaka（在线卡卡）</a></li>
+                <li><a href="#red">red_IXx</a></li>
+                <li><a href="#jusi">jusi</a></li>
+                <li><a href="#pixel">pixel</a></li>
+                <li><a href="#bendyus">bendyus</a></li>
+                <li><a href="#flamegemini">flamegemini</a></li>
+                <li><a href="#artisan">Artisan</a></li>
+            </ul>
+        </nav>
+
+        <div class="characters-grid">
+            <div class="character-card" id="kaka">
+                <div class="character-avatar">kaka</div>
+                <h3 class="character-name">kaka（在线卡卡）</h3>
+                <p class="character-role">成长型普通玩家</p>
+                <p class="character-desc">性格怯懦善良，有强烈的责任感，初期不会PVP，经常被抢劫，连自保能力都没有，房子被摧毁后踏上寻找Artisan失落文明真相的旅程。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>遭遇神秘人flamegemini后获得重锤，在其引导下学会使用鞘翅重锤，从一个只能逃跑的普通玩家成长为能守护他人的冒险者，和伙伴jusi一起探索失落文明，多次对抗赏金猎人组织。</p>
+                </div>
+            </div>
+
+            <div class="character-card" id="red">
+                <div class="character-avatar">red</div>
+                <h3 class="character-name">red_IXx</h3>
+                <p class="character-role">强势行动派玩家</p>
+                <p class="character-desc">性格果断强势，充满野心，具备战斗能力，以成为服务器最强玩家为目标，拥有轨道打击炮等强力装备，行事风格直接，为了获取线索不择手段。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>和伙伴pixel一起探索失落文明的线索，多次与赏金猎人组织发生冲突，抢夺kaka的指南针和线索，在沙漠文明与kaka展开对决，虽然暂时获胜但也消耗了大量资源。</p>
+                </div>
+            </div>
+
+            <div class="character-card" id="jusi">
+                <div class="character-avatar">jusi</div>
+                <h3 class="character-name">jusi</h3>
+                <p class="character-role">kaka的冒险伙伴</p>
+                <p class="character-desc">性格乐观嘴贫，偶尔冲动，擅长使用重锤，因为房子被赏金猎人炸毁而和kaka结伴冒险，是kaka的战斗助力和情绪支持，在冒险中多次帮助kaka脱离险境。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>在kaka被赏金猎人围攻时出手相救，和kaka一起探索商会、沙漠文明等区域，协助kaka布置陷阱对抗red，始终陪伴kaka完成冒险旅程。</p>
+                </div>
+            </div>
+
+            <div class="character-card" id="pixel">
+                <div class="character-avatar">pixel</div>
+                <h3 class="character-name">pixel</h3>
+                <p class="character-role">red的智囊伙伴</p>
+                <p class="character-desc">沉着冷静，全程保持理性，是red的策略支持和后勤保障，擅长解谜和陷阱规避，熟悉失落文明的相关知识，帮助red规划行动路线，分析局势和风险。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>为red提供轨道打击炮，协助red破解各种陷阱，在战斗中负责牵制敌人，多次帮助red化险为夷，是red冒险过程中不可或缺的智囊。</p>
+                </div>
+            </div>
+
+            <div class="character-card" id="bendyus">
+                <div class="character-avatar">b</div>
+                <h3 class="character-name">bendyus（b）</h3>
+                <p class="character-role">赏金猎人组织首领</p>
+                <p class="character-desc">性格暴躁，复仇心强，带领赏金猎人组织寻找失落文明的线索，为了达到目的不惜使用暴力，多次与red、kaka发生冲突，在战斗中损失成员后对两人展开复仇。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>带领赏金猎人围攻kaka，与red在出生点、沙漠文明等地展开战斗，虽然多次被击退但始终没有放弃争夺线索，是red和kaka冒险路上的主要敌人之一。</p>
+                </div>
+            </div>
+
+            <div class="character-card" id="flamegemini">
+                <div class="character-avatar">f</div>
+                <h3 class="character-name">flamegemini（f）</h3>
+                <p class="character-role">服务器腐竹/神秘人</p>
+                <p class="character-desc">神秘的服务器管理者，掌握着服务器的核心秘密，以隐身玩家的身份出现在kaka面前，引导kaka成长，是kaka的引路人，也是失落文明相关线索的关键人物。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>在kaka陷入困境时出现，为kaka提供重锤和装备，指导kaka学会使用重锤，帮助kaka获得自保能力，是推动kaka成长的重要角色。</p>
+                </div>
+            </div>
+
+            <div class="character-card" id="artisan">
+                <div class="character-avatar">A</div>
+                <h3 class="character-name">Artisan</h3>
+                <p class="character-role">失落文明创建者</p>
+                <p class="character-desc">曾经统治服务器的强大玩家，创建了Artisan文明，掌握着复制技术等强大能力，后来突然消失，留下了大量的文明遗迹和线索，是整个剧本的核心线索人物。</p>
+                <div class="character-exp">
+                    <p class="exp-title">相关经历</p>
+                    <p>建立了庞大的Artisan文明，重新规范了服务器的秩序，让玩家们重新燃起希望，消失后文明覆灭，只留下沙漠文明、商会等遗迹，以及带有自己署名的线索和书籍。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
